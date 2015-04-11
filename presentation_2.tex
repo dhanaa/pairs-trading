@@ -1,0 +1,423 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KOMA-Script Presentation
+% LaTeX Template
+% Version 1.0 (3/3/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Authors:
+% Marius Hofert (marius.hofert@math.ethz.ch)
+% Markus Kohm (komascript@gmx.info)
+% Described in the PracTeX Journal, 2010, No. 2
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[
+paper=128mm:96mm, % The same paper size as used in the beamer class
+fontsize=11pt, % Font size
+pagesize, % Write page size to dvi or pdf
+parskip=half-, % Paragraphs separated by half a line
+]{scrartcl} % KOMA script (article)
+
+\linespread{1.12} % Increase line spacing for readability
+
+%------------------------------------------------
+% Colors
+\usepackage{xcolor}	 % Required for custom colors
+% Define a few colors for making text stand out within the presentation
+\definecolor{mygreen}{RGB}{44,85,17}
+\definecolor{myblue}{RGB}{34,31,217}
+\definecolor{mybrown}{RGB}{194,164,113}
+\definecolor{myred}{RGB}{255,66,56}
+% Use these colors within the presentation by enclosing text in the commands below
+\newcommand*{\mygreen}[1]{\textcolor{mygreen}{#1}}
+\newcommand*{\myblue}[1]{\textcolor{myblue}{#1}}
+\newcommand*{\mybrown}[1]{\textcolor{mybrown}{#1}}
+\newcommand*{\myred}[1]{\textcolor{myred}{#1}}
+%------------------------------------------------
+
+%------------------------------------------------
+% Margins
+\usepackage[ % Page margins settings
+includeheadfoot,
+top=3.5mm,
+bottom=3.5mm,
+left=5.5mm,
+right=5.5mm,
+headsep=6.5mm,
+footskip=8.5mm
+]{geometry}
+%------------------------------------------------
+
+%------------------------------------------------
+% Fonts
+\usepackage[T1]{fontenc}	 % For correct hyphenation and T1 encoding
+\usepackage{lmodern} % Default font: latin modern font
+%\usepackage{fourier} % Alternative font: utopia
+%\usepackage{charter} % Alternative font: low-resolution roman font
+\renewcommand{\familydefault}{\sfdefault} % Sans serif - this may need to be commented to see the alternative fonts
+%------------------------------------------------
+
+%------------------------------------------------
+% Various required packages
+\usepackage{amsthm} % Required for theorem environments
+\usepackage{bm} % Required for bold math symbols (used in the footer of the slides)
+\usepackage{graphicx} % Required for including images in figures
+\usepackage{tikz} % Required for colored boxes
+\usepackage{booktabs} % Required for horizontal rules in tables
+\usepackage{multicol} % Required for creating multiple columns in slides
+\usepackage{lastpage} % For printing the total number of pages at the bottom of each slide
+\usepackage[english]{babel} % Document language - required for customizing section titles
+\usepackage{microtype} % Better typography
+\usepackage{tocstyle} % Required for customizing the table of contents
+%------------------------------------------------
+
+%------------------------------------------------
+% Slide layout configuration
+\usepackage{scrpage2} % Required for customization of the header and footer
+\pagestyle{scrheadings} % Activates the pagestyle from scrpage2 for custom headers and footers
+\clearscrheadfoot % Remove the default header and footer
+\setkomafont{pageheadfoot}{\normalfont\color{black}\sffamily} % Font settings for the header and footer
+
+\usepackage{hyperref}
+
+% Sets vertical centering of slide contents with increased space between paragraphs/lists
+\makeatletter
+\renewcommand*{\@textbottom}{\vskip \z@ \@plus 1fil}
+\newcommand*{\@texttop}{\vskip \z@ \@plus .5fil}
+\addtolength{\parskip}{\z@\@plus .25fil}
+\makeatother
+
+% Remove page numbers and the dots leading to them from the outline slide
+\makeatletter
+\newtocstyle[noonewithdot]{nodotnopagenumber}{\settocfeature{pagenumberbox}{\@gobble}}
+\makeatother
+\usetocstyle{nodotnopagenumber}
+
+\AtBeginDocument{\renewcaptionname{english}{\contentsname}{\Large Outline}} % Change the name of the table of contents
+%------------------------------------------------
+
+%------------------------------------------------
+% Header configuration - if you don't want a header remove this block
+\ihead{
+\hspace{-2mm}
+\begin{tikzpicture}[remember picture,overlay]
+\node [xshift=\paperwidth/2,yshift=-\headheight] (mybar) at (current page.north west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=2\headheight,top color=mygreen!64,bottom color=mygreen]{}; % Colored bar
+\node[below of=mybar,yshift=3.3mm,rectangle,shade,inner sep=0pt,minimum width=128mm,minimum height =1.5mm,top color=black!50,bottom color=white]{}; % Shadow under the colored bar
+shadow
+\end{tikzpicture}
+\color{white}\runninghead} % Header text defined by the \runninghead command below and colored white for contrast
+%------------------------------------------------
+
+%------------------------------------------------
+% Footer configuration
+\newlength{\footheight}
+\setlength{\footheight}{8mm} % Height of the footer
+\addtokomafont{pagefoot}{\footnotesize} % Small font size for the footnote
+
+\ifoot{% Left side
+\hspace{-2mm}
+\begin{tikzpicture}[remember picture,overlay]
+\node [xshift=\paperwidth/2,yshift=\footheight] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=3pt,top color=mygreen,bottom color=mygreen]{}; % Green bar
+\end{tikzpicture}
+\myauthor\ \raisebox{0.2mm}{$\bm{\vert}$}\ \myuni % Left side text
+}
+
+\ofoot[\pagemark/\pageref{LastPage}\hspace{-2mm}]{\pagemark/\pageref{LastPage}\hspace{-2mm}} % Right side
+%------------------------------------------------
+
+%------------------------------------------------
+% Section spacing - deeper section titles are given less space due to lesser importance
+\usepackage{titlesec} % Required for customizing section spacing
+\titlespacing{\section}{0mm}{0mm}{0mm} % Lengths are: left, before, after
+\titlespacing{\subsection}{0mm}{0mm}{-1mm} % Lengths are: left, before, after
+\titlespacing{\subsubsection}{0mm}{0mm}{-2mm} % Lengths are: left, before, after
+\setcounter{secnumdepth}{0} % How deep sections are numbered, set to no numbering by default - change to 1 for numbering sections, 2 for numbering sections and subsections, etc
+%------------------------------------------------
+
+%------------------------------------------------
+% Theorem style
+\newtheoremstyle{mythmstyle} % Defines a new theorem style used in this template
+{0.5em} % Space above
+{0.5em} % Space below
+{} % Body font
+{} % Indent amount
+{\sffamily\bfseries} % Head font
+{} % Punctuation after head
+{\newline} % Space after head
+{\thmname{#1}\ \thmnote{(#3)}} % Head spec
+	
+\theoremstyle{mythmstyle} % Change the default style of the theorem to the one defined above
+\newtheorem{theorem}{Theorem}[section] % Label for theorems
+\newtheorem{remark}[theorem]{Remark} % Label for remarks
+\newtheorem{algorithm}[theorem]{Algorithm} % Label for algorithms
+\makeatletter % Correct qed adjustment
+%------------------------------------------------
+
+%------------------------------------------------
+% The code for the box which can be used to highlight an element of a slide (such as a theorem)
+\newcommand*{\mybox}[2]{ % The box takes two arguments: width and content
+\par\noindent
+\begin{tikzpicture}[mynodestyle/.style={rectangle,draw=mygreen,thick,inner sep=2mm,text justified,top color=white,bottom color=white,above}]\node[mynodestyle,at={(0.5*#1+2mm+0.4pt,0)}]{ % Box formatting
+\begin{minipage}[t]{#1}
+#2
+\end{minipage}
+};
+\end{tikzpicture}
+\par\vspace{-1.3em}}
+%------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION INFORMATION
+%----------------------------------------------------------------------------------------
+
+\newcommand*{\mytitle}{Pairs trading: implementations and experiments of relative value arbitrage strategy} % Title
+\newcommand*{\runninghead}{Pairs Trading} % Running head displayed on almost all slides
+\newcommand*{\myauthor}{Weiyi Chen} % Presenters name(s)
+\newcommand*{\mydate}{\today} % Presentation date
+\newcommand*{\myuni}{Tsinghua University --- Yao Class} % University or department
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SLIDE
+%----------------------------------------------------------------------------------------
+
+% Title slide - you may have to tweak a few of the numbers if you wish to make changes to the layout
+\thispagestyle{empty} % No slide header and footer
+\begin{tikzpicture}[remember picture,overlay] % Background box
+\node [xshift=\paperwidth/2,yshift=\paperheight/2] at (current page.south west)[rectangle,fill,inner sep=0pt,minimum width=\paperwidth,minimum height=\paperheight/3,top color=mygreen,bottom color=mygreen]{}; % Change the height of the box, its colors and position on the page here
+\end{tikzpicture}
+% Text within the box
+\begin{flushright}
+\vspace{0.6cm}
+\color{white}\sffamily
+{\bfseries\Large\mytitle\par} % Title
+\vspace{0.5cm}
+\normalsize
+\myauthor\par % Author name
+\mydate\par % Date
+\vfill
+\end{flushright}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+\thispagestyle{empty} % No slide header and footer
+
+\small\tableofcontents % Change the font size and print the table of contents - it may be useful to shrink the font size further if the presentation is full of sections
+% To exclude sections/subsections from the table of contents, put an asterisk after \(sub)section like so: \section*{Section Name}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATION SLIDES
+%----------------------------------------------------------------------------------------
+
+%------------------------------------------------
+
+\section{1. MFE careers}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Financial jobs}
+
+\begin{itemize}
+	\item S\&T: the \textcolor{red}{buying} and \textcolor{red}{selling} of securities
+	\item Quant: application of \textcolor{red}{mathematical and statistical methods} to financial and risk management problems
+	\item Risk Management: \textcolor{red}{identification, assessment, and prioritization} of risks
+	\item Investment Banking: \textcolor{red}{raising capital} by underwriting or acting as the client's agent in the issuance of securities
+	\item IT: varied and can cover anything
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{itemize}
+\item Sell-side trading
+	\begin{itemize}
+		\item Market making: quotes both a buy and a sell price, make a profit on \textcolor{red}{the bid-offer spread}
+		\item Etrading
+		\item Quant trading: trading based on \textcolor{red}{quantitative analysis}
+	\end{itemize}
+\item Buy-side trading
+	\begin{itemize}
+		\item Algo trading: \textcolor{red}{automated trading}, black-box trading, HFT
+		\item Quant trading (difference from sell-side, to identify strategies)
+	\end{itemize}
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\begin{itemize}
+\item Front office / desk quant: implement \textcolor{red}{pricing models} used by traders (money and opportunities to move into trading)
+\item Model validation: \textcolor{red}{independently} implement pricing models to check front office models (less stressful)
+\item Research: invent new pricing approaches (interesting and learn more)
+\item Quant developer:  a \textcolor{red}{programmer} (well-paid and easier to find a job)
+\item Statistical arbitrage: find patterns in data to suggest \textcolor{red}{automated} trades (return highly volatile)
+\item Capital quant: model the bank's credit exposures and \textcolor{red}{capital} requirements
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+
+\subsection{Available jobs for FEer}
+
+\begin{itemize}
+\item Risk management
+\item Quant or S\&T? (RITC competition video)
+\item Somewhat depends on program (Computational Finance, Mathematics Finance, Financial Engineering, Finance)
+\item Buy side vs. Sell side
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+
+\subsection{How to get an internship}
+
+\begin{itemize}
+\item Apply through website or sending emails (Linkedin KCG, Baruch)
+\item Set up interviews
+\item Final round (super day)
+\end{itemize}
+
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{itemize}
+\item Resume: for the interview (mine)
+\item Information, \textbf{Networking is rewarded}
+\item Interview skills
+\begin{itemize}
+	\item Technical (book list)
+	\item Behavioral (resume)
+	\item \textbf{Personality}
+\end{itemize}
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+
+\section{2. MFE skills preparation}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Basic preparations}
+
+\begin{itemize}
+\item Three fields
+	\begin{itemize}
+		\item CS programming: \textcolor{red}{C++}, OOP, Python, Matlab, R
+		\item Math: \textcolor{red}{calculus, linear algebra, statistics, numerical methods}, ode, pde, stochastic process, stochastic calculus
+		\item Finance: \textcolor{red}{financial engineering, economics}, corporate finance, accounting, security analysis, portfolio management
+	\end{itemize}
+\item Resume \& cover letter (= personal statement)
+\item Practice your listening and oral english
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Advanced preparations}
+
+\begin{itemize}
+\item Networking
+	\begin{itemize}
+		\item with seniors (personal recommendation)
+		\item with professors (pre-MFE course, PKU econ, phone or meet)
+		\item with practitioners (official recommendation)
+	\end{itemize}
+\item About research and internship
+\item CS skills
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Recommended books and MOOCs}
+
+\begin{itemize}
+\item Required: 
+	\begin{itemize}
+		\item 150 Most Frequently Asked Questions on Quant Interviews
+		\item Coursera: Financial Engineering and Risk Management
+		\item My Life as a Quant
+	\end{itemize}
+\item Elective:
+	\begin{itemize}
+		\item QuantNet best-selling books
+		\item Coursera: Intro to CF and FE, Mathematical methods for QF, \textcolor{red}{computational investing}
+		\item WSJ, default page
+	\end{itemize}
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\section{3. MFE programs insights, personally}
+
+\begin{itemize}
+	\item CMU MSCF (good at sales \& trading)
+	\item Columbia MFE (best reputation in Asia)
+	\item Baruch MFE (high employment statistics)
+	\item NYU MathFin (good at quant)
+	\item Cornell MFE (good at risk management)
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{rankings \& match}
+
+\begin{itemize}
+\item \href{https://www.quantnet.com/mfe-programs-rankings/}{Quantnet ranking}
+\item \textcolor{red}{Computation}: Baruch, CMU > Columbia FE > NYU, Cornell, Stanford
+\item Finance: Berkeley, CMU, Princeton > Baruch, NYU
+\item Math: NYU, Stanford > UCB, Baruch, Cornell
+\item Reputation: Princeton, MIT, Columbia> Cornell > CMU, Berkeley, NYU
+\item \textcolor{red}{Tuition}: Baruch > Columbia, NYU, Berkeley > CMU, Princeton
+\end{itemize}
+
+\clearpage
+
+%------------------------------------------------
+
+\subsection{Q\&A}
+Thanks for listening. \\
+Contacts: wechat 122782886 or weiyi.alan.chen@gmail.com
+\clearpage
+
+
+\end{document}
